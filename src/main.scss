@@ -13,6 +13,17 @@ video {
   display: block;
 }
 
+body {
+  background: #eee;
+}
+
+.screen {
+  width: 1080px;
+  height: 1920px;
+  margin: 0 auto;
+  background: #efbe64;
+}
+
 .container {
   display: flex;
   justify-content: center;
