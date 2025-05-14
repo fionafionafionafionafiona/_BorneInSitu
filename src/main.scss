@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+video {
+  display: block;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.hand {
+  position: fixed;
+  width: 10%;
+  z-index: 5;
+}
+
+.circle {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  position: fixed;
+  transform: scale(1);
+  transition: transform 1.3s ease;
+}
+.circles.is-active .circle {
+  transform: scale(300);
+}
+
+.first {
+  background-color: #b7f898;
+  z-index: 4;
+  transition-delay: 4.1s;
+}
+.second {
+  background-color: #eee773;
+  z-index: 3;
+  transition-delay: 3.2s;
+}
+.third {
+  background-color: #df6f3f;
+  z-index: 2;
+  transition-delay: 2.3s;
+}
+.fourth {
+  background-color: #ebbaf6;
+  z-index: 1;
+  transition-delay: 1.4s;
+}
+.fifth {
+  background-color: #eee773;
+  transition-delay: 0.5s;
+}
