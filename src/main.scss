@@ -28,48 +28,80 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .hand {
-  position: fixed;
-  width: 10%;
-  z-index: 5;
+  z-index: 100;
+  mix-blend-mode: soft-light;
+  // svg {
+  //   filter: blur(6);
+  // }
+}
+
+.hand-border {
+  fill: #ffffff;
 }
 
 .circle {
   border-radius: 50%;
-  height: 10px;
-  width: 10px;
+  height: 1px;
+  width: 1px;
   position: fixed;
-  transform: scale(1);
   transition: transform 1.3s ease;
 }
+
 .circles.is-active .circle {
-  transform: scale(300);
+  transform: scale(4000);
 }
 
 .first {
-  background-color: #b7f898;
+  background: radial-gradient(
+    circle,
+    #b7f898 30%,
+    rgba(253, 216, 53, 0.2) 70%,
+    transparent 100%
+  );
   z-index: 4;
   transition-delay: 4.1s;
 }
 .second {
-  background-color: #eee773;
+  background: radial-gradient(
+    circle,
+    #eee773 30%,
+    rgba(253, 216, 53, 0.2) 70%,
+    transparent 100%
+  );
   z-index: 3;
   transition-delay: 3.2s;
 }
 .third {
-  background-color: #df6f3f;
+  background: radial-gradient(
+    circle,
+    #df6f3f 30%,
+    rgba(253, 216, 53, 0.2) 70%,
+    transparent 100%
+  );
   z-index: 2;
   transition-delay: 2.3s;
 }
 .fourth {
-  background-color: #ebbaf6;
+  background: radial-gradient(
+    circle,
+    #ebbaf6 30%,
+    rgba(253, 216, 53, 0.2) 70%,
+    transparent 100%
+  );
   z-index: 1;
   transition-delay: 1.4s;
 }
 .fifth {
-  background-color: #eee773;
+  background: radial-gradient(
+    circle,
+    #eee773 30%,
+    rgba(253, 216, 53, 0.2) 70%,
+    transparent 100%
+  );
   transition-delay: 0.5s;
 }
