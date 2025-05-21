@@ -14,9 +14,24 @@ video {
 }
 
 body {
-  background: #eee;
+  // height: 100vh;
+  // background-color: #3a07f2;
 }
+
+.screen {
+  width: 1080px;
+  height: 1920px;
+  margin: 0 auto;
+  position: relative;
+}
+
 .gradient {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-color: #3a07f2;
   svg {
     width: 100%;
     height: 100%;
@@ -30,7 +45,7 @@ body {
   }
   .blur {
     position: fixed;
-    z-index: 998;
+    z-index: 11;
     height: 100vh;
     width: 100%;
     // backdrop-filter: blur(200px);
@@ -41,41 +56,29 @@ body {
     background-color: #3a07f2;
     opacity: 10%;
     position: fixed;
-    z-index: 999;
+    z-index: 12;
     height: 100vh;
     width: 100%;
     mix-blend-mode: saturation;
   }
-  .un {
+  .gradient-first {
     opacity: 20%;
   }
 }
-.gradient {
-  display: flex;
-  flex-direction: column;
-}
-body {
-  height: 100vh;
-  background-color: #3a07f2;
-}
 
-.screen {
-  width: 1080px;
-  height: 1920px;
-  margin: 0 auto;
-  background: #efbe64;
-}
-
-.container {
+.hand-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 20;
 }
 
 .hand {
-  z-index: 100;
+  z-index: 25;
   mix-blend-mode: soft-light;
   svg {
     filter: blur(5);
@@ -108,7 +111,7 @@ body {
     rgba(253, 216, 53, 0.2) 70%,
     transparent 100%
   );
-  z-index: 4;
+  z-index: 24;
   transition-delay: 4.1s;
 }
 .second {
@@ -118,7 +121,7 @@ body {
     rgba(253, 216, 53, 0.2) 70%,
     transparent 100%
   );
-  z-index: 3;
+  z-index: 23;
 
   transition-delay: 3.2s;
 }
@@ -129,7 +132,7 @@ body {
     rgba(253, 216, 53, 0.2) 70%,
     transparent 100%
   );
-  z-index: 2;
+  z-index: 22;
   transition-delay: 2.3s;
 }
 .fourth {
@@ -139,7 +142,7 @@ body {
     rgba(253, 216, 53, 0.2) 70%,
     transparent 100%
   );
-  z-index: 1;
+  z-index: 21;
   transition-delay: 1.4s;
 }
 .fifth {
@@ -155,7 +158,6 @@ body {
 .final-screen {
   position: absolute;
   inset: 0;
-  z-index: -20;
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -176,8 +178,10 @@ body {
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  z-index: 1000;
+  inset: 0;
+  z-index: 30;
   mix-blend-mode: overlay;
+  pointer-events: none;
   span {
     display: inline-block;
   }
@@ -186,6 +190,7 @@ body {
     font-size: 120px;
     color: white;
   }
+
   .title-box {
     height: 150px;
     text-align: center;
@@ -193,5 +198,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: 600px;
   }
 }

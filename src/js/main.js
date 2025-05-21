@@ -55,9 +55,8 @@ function activeHand() {
       },
     },
     ">+=0.5"
-  ); // start after a short pause
+  );
 
-  // Fade in PNG
   tl.to(
     ".final-screen",
     {
@@ -97,3 +96,129 @@ document.body.addEventListener("keypress", function (event) {
     }
   }
 });
+
+const title = document.querySelectorAll(".title");
+
+title.forEach((title) => {
+  const titleString = title.textContent;
+  const titleCharacters = titleString.split("");
+
+  title.textContent = "";
+
+  titleCharacters.forEach((character) => {
+    title.innerHTML += "<span>" + character + "</span>";
+    if (character === " ") {
+      title.innerHTML += " ";
+    }
+  });
+
+  const characters = title.querySelectorAll("span");
+
+  gsap.to(characters, {
+    y: -20,
+    duration: 1,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true,
+    stagger: {
+      each: 0.05,
+      repeat: -1,
+      yoyo: true,
+    },
+  });
+});
+
+// title animation
+
+const titles = document.querySelectorAll(".title");
+const numTitles = titles.length;
+const moveAmount = 150;
+const transitionDuration = 0.3;
+const stayDuration = 2;
+
+const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
+for (var i = 0; i < numTitles; i++) {
+  tl.to(titles, {
+    y: i * moveAmount * -1,
+    duration: transitionDuration,
+    ease: "power2.inOut",
+  });
+  if (i == 1) {
+    tl.add(() => {}, "+=3");
+  } else {
+    tl.add(() => {}, "+=1.5");
+  }
+}
+
+// gradient
+
+// //dégradé
+
+function animateSVGs() {
+  const elements = [
+    { selector: ".gradient-first", freq: 0.0011, amp: 15 },
+    { selector: ".gradient-second", freq: 0.0014, amp: 20 },
+    { selector: ".gradient-third", freq: 0.0018, amp: 25 },
+    { selector: ".gradient-fourth", freq: 0.0012, amp: 18 },
+  ].map(({ selector, freq, amp }) => ({
+    el: document.querySelector(selector),
+    freq,
+    amp,
+    rotationOffset: 0,
+    rotationTarget: 0,
+    rotationStartTime: 0,
+    rotationDuration: 0,
+    lastSpinTime: 0,
+  }));
+
+  const easeInOutCubic = (t) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  function animate(time) {
+    elements.forEach((obj, i) => {
+      if (!obj.el) return;
+
+      const { freq, amp } = obj;
+
+      const scale = 1 + Math.sin(time * freq * 0.8 + i * 2) * 0.25;
+      const x = Math.cos(time * freq * 0.6 + i) * amp;
+      const y = Math.sin(time * freq * 0.5 + i) * amp;
+
+      const isRotating = time < obj.rotationStartTime + obj.rotationDuration;
+
+      if (
+        !isRotating &&
+        time - obj.lastSpinTime > 5000 + Math.random() * 8000
+      ) {
+        obj.rotationOffset = obj.rotationTarget;
+        obj.rotationTarget += (Math.random() > 0.5 ? 1 : -1) * 360; // Tourne d'un tour complet (dans un sens ou l'autre)
+        obj.rotationStartTime = time;
+        obj.rotationDuration = 8000 + Math.random() * 8000; // Rotation entre 8 et 16 secondes
+        obj.lastSpinTime = time;
+      }
+
+      // Calcule la rotation actuelle en fonction du temps
+      let rotation = obj.rotationOffset;
+      if (obj.rotationDuration > 0) {
+        const progress = Math.min(
+          1,
+          (time - obj.rotationStartTime) / obj.rotationDuration
+        );
+        rotation =
+          obj.rotationOffset +
+          (obj.rotationTarget - obj.rotationOffset) * easeInOutCubic(progress);
+      }
+
+      // --- APPLICATION DE LA TRANSFORMATION SUR L'ÉLÉMENT ---
+      obj.el.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg) scale(${scale})`;
+    });
+
+    // Redemande une nouvelle frame pour continuer l'animation
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animateSVGs();
