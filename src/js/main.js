@@ -1,14 +1,18 @@
 import gsap from "gsap";
 
+// hand animation
+
 var hand = document.querySelector(".hand");
 var circlesWrapper = document.querySelector(".circles");
 var finalScreen = document.querySelector(".final-screen");
+var titleContainer = document.querySelector(".title-box-container");
 
 function activeHand() {
   pulse.kill();
   circlesWrapper.classList.add("is-active");
+  titleContainer.classList.add("is-active");
 
-  var beatTimings = [0.5, 1.4, 2.3, 3.2, 4.1];
+  var beatTimings = [0.1, 0.4, 0.8, 1.2, 1.6];
 
   var tl = gsap.timeline({ defaults: { transformOrigin: "center center" } });
 
@@ -43,28 +47,27 @@ function activeHand() {
     },
     beatTimings[beatTimings.length - 1] + 1
   );
-
   tl.to(
-    ".screen",
+    ".gradient",
+    {
+      opacity: 0,
+      duration: 0.1,
+      ease: "power1.out",
+      onComplete: () => {
+        document.querySelector(".screen").style.pointerEvents = "none";
+      },
+    },
+    ">"
+  );
+  tl.to(
+    ".hand-container, .logos",
+
     {
       opacity: 0,
       duration: 1,
       ease: "power1.out",
       onComplete: () => {
         document.querySelector(".screen").style.pointerEvents = "none";
-      },
-    },
-    ">+=0.5"
-  );
-
-  tl.to(
-    ".final-screen",
-    {
-      opacity: 1,
-      duration: 1,
-      ease: "power2.inOut",
-      onStart: () => {
-        finalScreen.style.pointerEvents = "auto";
       },
     },
     ">"
@@ -82,6 +85,8 @@ var pulse = gsap.to(".hand", {
   transformOrigin: "center center",
 });
 
+// fullscreen mode
+
 var isFullScreen = false;
 
 document.body.addEventListener("keypress", function (event) {
@@ -96,6 +101,8 @@ document.body.addEventListener("keypress", function (event) {
     }
   }
 });
+
+// title animation
 
 const title = document.querySelectorAll(".title");
 
@@ -128,11 +135,9 @@ title.forEach((title) => {
   });
 });
 
-// title animation
-
 const titles = document.querySelectorAll(".title");
 const numTitles = titles.length;
-const moveAmount = 150;
+const moveAmount = 80;
 const transitionDuration = 0.3;
 const stayDuration = 2;
 
@@ -151,9 +156,7 @@ for (var i = 0; i < numTitles; i++) {
   }
 }
 
-// gradient
-
-// //dégradé
+// gradient animation
 
 function animateSVGs() {
   const elements = [
@@ -192,13 +195,12 @@ function animateSVGs() {
         time - obj.lastSpinTime > 5000 + Math.random() * 8000
       ) {
         obj.rotationOffset = obj.rotationTarget;
-        obj.rotationTarget += (Math.random() > 0.5 ? 1 : -1) * 360; // Tourne d'un tour complet (dans un sens ou l'autre)
+        obj.rotationTarget += (Math.random() > 0.5 ? 1 : -1) * 360;
         obj.rotationStartTime = time;
-        obj.rotationDuration = 8000 + Math.random() * 8000; // Rotation entre 8 et 16 secondes
+        obj.rotationDuration = 8000 + Math.random() * 8000;
         obj.lastSpinTime = time;
       }
 
-      // Calcule la rotation actuelle en fonction du temps
       let rotation = obj.rotationOffset;
       if (obj.rotationDuration > 0) {
         const progress = Math.min(
@@ -210,11 +212,9 @@ function animateSVGs() {
           (obj.rotationTarget - obj.rotationOffset) * easeInOutCubic(progress);
       }
 
-      // --- APPLICATION DE LA TRANSFORMATION SUR L'ÉLÉMENT ---
       obj.el.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg) scale(${scale})`;
     });
 
-    // Redemande une nouvelle frame pour continuer l'animation
     requestAnimationFrame(animate);
   }
 
